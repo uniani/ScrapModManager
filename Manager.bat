@@ -1,6 +1,16 @@
 @echo off
 chcp 65001>nul
-echo Scrap Mod Manager
+title Scrap Mod Manager
+for /f "tokens=2,*" %%a in ('reg query "HKCU\SOFTWARE\Valve\Steam" /v "SteamPath"') do (
+set Steam_Path=%%b )
 set /p GAME_DIR="Enter game directory path: "
-echo GAME_DIR=%GAME_DIR%>Data/config.cfg
+call :write_cfg
 pause
+exit
+
+:write_cfg
+(
+echo GAME_DIR=%GAME_DIR%
+echo 
+)>Data/config.cfg
+exit /b
